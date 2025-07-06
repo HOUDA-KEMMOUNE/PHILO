@@ -36,21 +36,25 @@ int main()
 {
     pthread_t       tid1;
     pthread_t       tid2;
+    pthread_t       tid3;
     unsigned int    count;
 
     count = 0;
     //creating the threads
     pthread_create(&tid1, NULL, pthread_handler, &count);
-    sleep(1);
+    // sleep(1);
     pthread_create(&tid2, NULL, pthread_handler, &count);
-    sleep(1);
+    // sleep(1);
+    pthread_create(&tid3, NULL, pthread_handler, &count);
 
     //waiting for threads
     pthread_join(tid1, NULL);
     printf("Waiting the first thread ....\n");
     pthread_join(tid2, NULL);
     printf("Waiting the second thread ....\n");
-    if (count != (THREAD_COUNT * 2))
+    pthread_join(tid3, NULL);
+    printf("Waiting the third thread ....\n");
+    if (count != (THREAD_COUNT * 3))
     {
         printf("%sERROR: Total threads are: %u%s\n", RED, count, NC);
         return (1);
