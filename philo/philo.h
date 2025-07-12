@@ -27,6 +27,14 @@ typedef struct s_info
 	int	num_each_philo_must_eat;
 }				t_info;
 
+typedef struct s_philo
+{
+	pthread_t		tid;
+	pthread_mutex_t	fork;
+	struct s_philo	*next;
+}				t_philo;
+
+
 int		ft_atoi(const char *str);
 void	info_init(char **av);
 t_info	**ultimate_info(void);
