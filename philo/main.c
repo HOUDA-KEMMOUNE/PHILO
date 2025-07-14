@@ -31,23 +31,19 @@ void	info_init(char **av)
 	*ultimate_info() = args;
 }
 
-void	philo_routine(void *data)
-{
+// void	philo_routine(void *data)
+// {
 
-}
+// }
 
 int	main(int ac, char **av)
 {
-	int			i;
-	pthread_t	tid;
+	// int			i;
+	// pthread_t	tid;
 
 	if (check_numbers(ac, av) == 1)
 		return (1);
 	info_init(av);
-	i = 0;
-	while (i < (*ultimate_info())->num_philo)
-	{
-		pthread_create(&tid, NULL, philo_routine, NULL);
-		i++;
-	}
+	create_list(5);
+	return(0);
 }

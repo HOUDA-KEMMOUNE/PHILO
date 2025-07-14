@@ -30,6 +30,7 @@ typedef struct s_info
 typedef struct s_philo
 {
 	pthread_t		tid;
+	int				id;
 	pthread_mutex_t	fork;
 	struct s_philo	*next;
 }				t_philo;
@@ -42,6 +43,11 @@ t_info	**ultimate_info(void);
 //-----------parsing------------------
 int		check_numbers(int ac ,char **av);
 int		check_args(int ac, char **av);
+
+//---------------init_philo------------
+t_philo	**philo_list(void);
+t_philo	*add_node(t_philo *philosopher);
+void	create_list(int	philo_num);
 
 # endif
 
