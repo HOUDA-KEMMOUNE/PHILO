@@ -58,4 +58,7 @@ typedef struct s_table
 int		check_args(int ac, char **av);
 int		check_numbers(int ac, char **av);
 
+//---------utils.c-----------------
+long	ft_atol(const char *str);
+
 #endif
