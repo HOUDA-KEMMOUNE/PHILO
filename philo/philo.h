@@ -51,6 +51,8 @@ typedef struct s_table
 	long	num_each_philo_must_eat;
 	long	start_simulation;
 	bool	end_simulation;
+	bool	all_threads_ready;
+	t_mtx	table_mutex;
 	t_fork	*forks;
 	t_philo	*philos;
 }				t_table;

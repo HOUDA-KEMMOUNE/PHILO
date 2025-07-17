@@ -39,7 +39,6 @@ static void	philo_init(t_table *table)
 		philo->full = false;
 		philo->meal_counter = 0;
 		philo->table = table;
-		//							i is the position
 		assign_forks(philo, table->forks, i);
 	}
 }
@@ -50,8 +49,10 @@ void	data_init(t_table *table)
 
 	i = -1;
 	table->end_simulation = false;
+	table->all_threads_ready = false;
 	table->philos = malloc(sizeof(t_philo) * table->num_philo);
 	table->forks = malloc(sizeof(t_fork) * table->num_philo);
+	pthread_mutex_init(&table->table_mutex, NULL);
 	while (++i < table->num_philo)
 	{
     	pthread_mutex_init(&table->forks[i].fork, NULL);
