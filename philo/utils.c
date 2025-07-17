@@ -34,7 +34,7 @@ static int	check_len(char *str)
 	return (0);
 }
 
-long	ft_atol(const char *str)
+long	ft_atol(char *str)
 {
 	int		i;
 	int		sign;
@@ -50,7 +50,7 @@ long	ft_atol(const char *str)
 			sign = -1;
 		i++;
 	}
-	if (check_len(str) == -1)
+	if (check_len(&str[i]) == -1)
 		return (-1);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
@@ -58,4 +58,27 @@ long	ft_atol(const char *str)
 		i++;
 	}
 	return ((long)result * sign);
+}
+// ./philo 		5 			600 			200 			800 					[5]
+//			num_philo	time_to_die		time_to_eat		time_to_sleep	[num_each_philo_must_eat]
+
+int	parse_input(t_table *table, char **av)
+{
+	table->num_philo = ft_atol(av[1]);
+	table->time_to_die = ft_atol(av[2]) * 1e3;
+	table->time_to_eat = ft_atol(av[3]) * 1e3;
+	table->time_to_sleep = ft_atol(av[4]) * 1e3;
+	// printf("table->time_to_die === %ld\n", table->time_to_die);
+	if (table->time_to_die < 6e4
+		|| table->time_to_eat < 6e4
+		|| table->time_to_sleep < 6e4)
+	{
+		printf("The times should be greater than 60ms !\n");
+		return (1);
+	}
+	if (av[5])
+		table->num_each_philo_must_eat = ft_atol(av[1]);
+	else
+		table->num_each_philo_must_eat = -1;
+	return (0);
 }

@@ -16,7 +16,11 @@
 
 int	main(int ac, char **av)
 {
-	if (check_args(ac, av) == 1)
+	t_table	table;
+
+	if (check_numbers(ac, av) == 1)
 		return (1);
-	
+	if (parse_input(&table, av) == 1)
+		return (1);
+	// data_init(&table); //TODO
 }

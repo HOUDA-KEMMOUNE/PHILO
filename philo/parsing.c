@@ -34,7 +34,7 @@ int	check_numbers(int ac, char **av)
 		return (1);
 	i = 1;
 	j = 0;
-	while (av[i] && i < ac - 1)
+	while (av[i] && i < ac)
 	{
 		while (av[i][j])
 		{
