@@ -2,7 +2,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = philo
 
-SRC = main.c utils.c parsing.c init.c
+SRC = main.c utils.c parsing.c init.c dinner.c
 	
 all: $(NAME)
 

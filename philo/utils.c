@@ -21,12 +21,12 @@ static int	check(const char *str, int i)
 
 static int	check_len(char *str)
 {
-	int	i;
+	long long	i;
 
 	i = 0;
 	while (str[i])
 		i++;
-	if (i > 10)
+	if (i >= 9)
 	{
 		printf("The number is too long. The max is: INT_MAX\n");
 		return (-1);
@@ -64,11 +64,13 @@ long	ft_atol(char *str)
 
 int	parse_input(t_table *table, char **av)
 {
+	if (ft_atol(av[1]) == -1 || ft_atol(av[2]) == -1
+		|| ft_atol(av[3]) == -1 || ft_atol(av[4]) == -1)
+		return (1);
 	table->num_philo = ft_atol(av[1]);
 	table->time_to_die = ft_atol(av[2]) * 1e3;
 	table->time_to_eat = ft_atol(av[3]) * 1e3;
 	table->time_to_sleep = ft_atol(av[4]) * 1e3;
-	// printf("table->time_to_die === %ld\n", table->time_to_die);
 	if (table->time_to_die < 6e4
 		|| table->time_to_eat < 6e4
 		|| table->time_to_sleep < 6e4)
@@ -77,7 +79,11 @@ int	parse_input(t_table *table, char **av)
 		return (1);
 	}
 	if (av[5])
-		table->num_each_philo_must_eat = ft_atol(av[1]);
+	{
+		if (ft_atol(av[5]) == -1)
+			return (1);
+		table->num_each_philo_must_eat = ft_atol(av[5]);
+	}
 	else
 		table->num_each_philo_must_eat = -1;
 	return (0);

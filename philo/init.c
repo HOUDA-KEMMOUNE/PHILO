@@ -60,4 +60,3 @@ void	data_init(t_table *table)
 	}
 	philo_init(table);
 }
-
