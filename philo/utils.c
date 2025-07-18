@@ -82,9 +82,9 @@ int	parse_input(t_table *table, char **av)
 	{
 		if (ft_atol(av[5]) == -1)
 			return (1);
-		table->num_each_philo_must_eat = ft_atol(av[5]);
+		table->nbr_limit_meals = ft_atol(av[5]);
 	}
 	else
-		table->num_each_philo_must_eat = -1;
+		table->nbr_limit_meals = -1;
 	return (0);
 }

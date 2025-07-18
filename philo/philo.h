@@ -43,7 +43,7 @@ typedef struct s_table
 	long		time_to_die;
 	long		time_to_eat;
 	long		time_to_sleep;
-	long		nnbr_limit_meals;
+	long		nbr_limit_meals;
 	long		start_simulation;
 	long		threads_running_nbr;
 	long		philos_full;
