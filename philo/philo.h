@@ -67,4 +67,10 @@ int		parse_input(t_table *table, char **av);
 //---------init.c-----------------
 void	data_init(t_table *table);
 
+//---------getters_setters.c-----------------
+void	set_bool(t_mtx *mutex, bool *dest, bool value);
+bool	get_bool(t_mtx *mutex, bool value);
+void	set_long(t_mtx *mutex, long *dest, long value);
+long	get_long(t_mtx *mutex, long value);
+
 #endif
