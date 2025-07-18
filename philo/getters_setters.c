@@ -19,12 +19,12 @@ void	set_bool(t_mtx *mutex, bool *dest, bool value)
 	pthread_mutex_unlock(mutex);
 }
 
-bool	get_bool(t_mtx *mutex, bool value)
+bool	get_bool(t_mtx *mutex, bool *value)
 {
 	bool	res;
 
 	pthread_mutex_lock(mutex);
-	res = value;
+	res = *value;
 	pthread_mutex_unlock(mutex);
 	return (res);
 }
@@ -36,12 +36,17 @@ void	set_long(t_mtx *mutex, long *dest, long value)
 	pthread_mutex_unlock(mutex);
 }
 
-long	get_long(t_mtx *mutex, long value)
+long	get_long(t_mtx *mutex, long *value)
 {
 	long	res;
 
 	pthread_mutex_lock(mutex);
-	res = value;
+	res = *value;
 	pthread_mutex_unlock(mutex);
 	return (res);
+}
+
+bool	sim_finished(t_table *table)
+{
+	return (get_bool(&table->table_mutex, &table->end_simulation));
 }
