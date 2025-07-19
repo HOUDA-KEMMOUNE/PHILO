@@ -12,8 +12,6 @@
 
 #include "philo.h"
 
-#include "philo.h"
-
 static bool	philo_died(t_philo *philo)
 {
 	long	elapsed;
