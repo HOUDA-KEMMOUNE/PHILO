@@ -23,5 +23,6 @@ int	main(int ac, char **av)
 	if (parse_input(&table, av) == 1)
 		return (1);
 	data_init(&table);
-	// dinner_start(&table); //TODO
+	dinner_start(&table);
+	clean(&table);
 }

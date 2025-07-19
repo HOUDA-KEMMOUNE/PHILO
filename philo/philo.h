@@ -99,6 +99,7 @@ bool    all_threads_running(t_mtx *mutex, long *threads, long philo_nbr);
 //---------utils2.c-----------------
 void    precise_usleep(long sleep_time, t_table *table);
 long    gettime(void);
+void	clean(t_table *table);
 
 //---------monitor.c-----------------
 void    *monitor_dinner(void *data);

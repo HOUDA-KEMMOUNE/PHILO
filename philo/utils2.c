@@ -20,3 +20,20 @@ void    precise_usleep(long sleep_time, t_table *table)
         usleep(10);
     }
 }
+
+void	clean(t_table *table)
+{
+	t_philo	*philo;
+	int		i;
+
+	i = -1;
+	while (++i < table->num_philo)
+	{
+		philo = table->philos + i;
+		pthread_mutex_destroy(&philo->philo_mutex);
+	}
+	pthread_mutex_destroy(&table->write_mutex);
+	pthread_mutex_destroy(&table->table_mutex);
+	free(table->forks);
+	free(table->philos);
+}

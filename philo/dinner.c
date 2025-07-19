@@ -33,7 +33,7 @@ static void	thinking(t_philo *philo)
 	long	t_think;
 
 	write_status(THINKING, philo);
-	if (philo->philo_id % 2 == 0)
+	if (philo->table->num_philo % 2 == 0)
 		return ;
 	t_eat = philo->table->time_to_eat;
 	t_sleep = philo->table->time_to_sleep;
@@ -69,7 +69,7 @@ void	*dinner_simulation(void *data)
 	increase_long(&philo->table->table_mutex, &philo->table->threads_running_nbr);
 	while (!sim_finished(philo->table))
 	{
-		eat(philo); //TODO
+		eat(philo);
 		if (philo->full)
 		{
 			increase_long(&philo->table->table_mutex, &philo->table->philos_full);
@@ -77,8 +77,9 @@ void	*dinner_simulation(void *data)
 		}
 		write_status(SLEEPING, philo);
 		precise_usleep(philo->table->time_to_sleep, philo->table);
-		thinking(philo); //TODO
+		thinking(philo);
 	}
+	return (NULL);
 }
 
 void	dinner_start(t_table *table)

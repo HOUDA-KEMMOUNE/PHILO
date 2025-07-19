@@ -17,6 +17,6 @@ void    write_status(t_philo_status status, t_philo *philo)
 	else if (status == THINKING && !sim_finished(philo->table))
 		printf("%-6ld %d is thinking\n", current_time, philo->philo_id);
 	else if (status == DIED)
-		printf("%-6ld %d died", current_time, philo->philo_id);
+		printf("%-6ld %d died\n", current_time, philo->philo_id);
 	pthread_mutex_unlock(&philo->table->write_mutex);
 }
