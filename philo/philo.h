@@ -89,6 +89,7 @@ void    write_status(t_philo_status status, t_philo *philo);
 //---------dinner.c-----------------
 void	dinner_start(t_table *table);
 void	*one_philo(void *data);
+void	*dinner_simulation(void *data);
 
 //---------synchro_utils.c-----------------
 void    increase_long(t_mtx *mutex, long *value);
