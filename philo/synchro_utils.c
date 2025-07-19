@@ -12,3 +12,15 @@ void    increase_long(t_mtx *mutex, long *value)
     (*value)++;
     pthread_mutex_unlock(mutex);
 }
+
+bool    all_threads_running(t_mtx *mutex, long *threads, long philo_nbr)
+{
+    bool    ret;
+
+    ret = false;
+    pthread_mutex_lock(mutex);
+    if (*threads == philo_nbr)
+        ret = true;
+    pthread_mutex_unlock(mutex);
+    return (ret);
+}
