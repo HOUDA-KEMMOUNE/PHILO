@@ -96,5 +96,12 @@ void	dinner_start(t_table *table)
 		while (++i < table->num_philo)
 			pthread_create(&table->philos[i].thread_id, NULL, dinner_simulation, &table->philos[i]);
 	}
-	// pthread_create(&table->monitor, NULL, monitor_dinner, table);
+	pthread_create(&table->monitor, NULL, monitor_dinner, table);
+	table->start_simulation = gettime();
+	set_bool(&table->table_mutex, &table->all_threads_ready, true);
+	i = -1;
+	while (++i < table->num_philo)
+		pthread_join(table->philos[i].thread_id, NULL);
+	set_bool(&table->table_mutex, &table->end_simulation, true);
+	pthread_join(table->monitor, NULL);
 }
