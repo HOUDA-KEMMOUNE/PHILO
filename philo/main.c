@@ -12,21 +12,6 @@
 
 #include "philo.h"
 
-// ./philo 5 600 200 800 [5]
-
-// int	main(int ac, char **av)
-// {
-// 	t_table	table;
-
-// 	if (check_numbers(ac, av) == 1)
-// 		return (1);
-// 	if (parse_input(&table, av) == 1)
-// 		return (1);
-// 	data_init(&table);
-// 	dinner_start(&table);
-// 	clean(&table);
-// }
-
 int	main(int ac, char **av)
 {
 	t_table	table;
