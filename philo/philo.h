@@ -24,6 +24,15 @@
 typedef pthread_mutex_t	t_mtx;
 typedef struct s_table	t_table;
 
+typedef enum e_status
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+	TAKEN_A_FORK,
+	DIED,
+}	t_philo_status;
+
 typedef struct s_philo
 {
 	int			philo_id;
@@ -74,5 +83,19 @@ void	set_long(t_mtx *mutex, long *dest, long value);
 long	get_long(t_mtx *mutex, long *value);
 bool	sim_finished(t_table *table);
 
+//---------write.c-----------------
+void    write_status(t_philo_status status, t_philo *philo);
+
+//---------dinner.c-----------------
+void	dinner_start(t_table *table);
+void	*one_philo(void *data);
+
+//---------synchro_utils.c-----------------
+void    increase_long(t_mtx *mutex, long *value);
+void    wait_all_threads(t_table *table);
+
+//---------utils2.c-----------------
+void    precise_usleep(long sleep_time, t_table *table);
+long    gettime(void);
 
 #endif
