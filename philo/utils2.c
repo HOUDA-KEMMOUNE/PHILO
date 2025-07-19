@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hkemmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/19 15:32:18 by hkemmoun          #+#    #+#             */
+/*   Updated: 2025/07/19 15:32:20 by hkemmoun         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-long    gettime(void)
+long	gettime(void)
 {
-    struct timeval  tv;
+	struct timeval	tv;
 
-    gettimeofday(&tv, NULL);
-    return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
 }
 
-void    precise_usleep(long sleep_time, t_table *table)
+void	precise_usleep(long sleep_time, t_table *table)
 {
-    long    start;
+	long	start;
 
-    start = gettime();
-    while (gettime() - start < sleep_time)
-    {
-        if (sim_finished(table))
-            break ;
-        usleep(10);
-    }
+	start = gettime();
+	while (gettime() - start < sleep_time)
+	{
+		if (sim_finished(table))
+			break ;
+		usleep(10);
+	}
 }
 
 void	clean(t_table *table)
@@ -36,4 +48,10 @@ void	clean(t_table *table)
 	pthread_mutex_destroy(&table->table_mutex);
 	free(table->forks);
 	free(table->philos);
+}
+
+void	error_exit(char *error)
+{
+	printf("Error: %s\n", error);
+	exit(EXIT_FAILURE);
 }

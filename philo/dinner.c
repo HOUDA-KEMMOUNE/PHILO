@@ -12,20 +12,6 @@
 
 #include "philo.h"
 
-void	*one_philo(void *data)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)data;
-	wait_all_threads(philo->table);
-	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime());
-	increase_long(&philo->table->table_mutex, &philo->table->threads_running_nbr);
-	write_status(TAKEN_A_FORK, philo);
-	while (!sim_finished(philo->table))
-		precise_usleep(philo->table->time_to_sleep, philo->table);
-	return (NULL);	
-}
-
 static void	thinking(t_philo *philo)
 {
 	long	t_eat;
@@ -43,6 +29,21 @@ static void	thinking(t_philo *philo)
 	precise_usleep(t_think, philo->table);
 }
 
+void	*lone_philo(void *data)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
+	wait_all_threads(philo->table);
+	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime());
+	increase_long(&philo->table->table_mutex,
+		&philo->table->threads_running_nbr);
+	write_status(TAKEN_A_FORK, philo);
+	while (!sim_finished(philo->table))
+		precise_usleep(philo->table->time_to_sleep, philo->table);
+	return (NULL);
+}
+
 static void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->first_fork);
@@ -53,7 +54,8 @@ static void	eat(t_philo *philo)
 	philo->meals_counter++;
 	write_status(EATING, philo);
 	precise_usleep(philo->table->time_to_eat, philo->table);
-	if (philo->table->nbr_limit_meals > 0 && philo->meals_counter == philo->table->nbr_limit_meals)
+	if (philo->table->nbr_limit_meals > 0
+		&& philo->meals_counter == philo->table->nbr_limit_meals)
 		set_bool(&philo->philo_mutex, &philo->full, true);
 	pthread_mutex_unlock(philo->first_fork);
 	pthread_mutex_unlock(philo->second_fork);
@@ -66,13 +68,15 @@ void	*dinner_simulation(void *data)
 	philo = (t_philo *)data;
 	wait_all_threads(philo->table);
 	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime());
-	increase_long(&philo->table->table_mutex, &philo->table->threads_running_nbr);
+	increase_long(&philo->table->table_mutex,
+		&philo->table->threads_running_nbr);
 	while (!sim_finished(philo->table))
 	{
 		eat(philo);
 		if (philo->full)
 		{
-			increase_long(&philo->table->table_mutex, &philo->table->philos_full);
+			increase_long(&philo->table->table_mutex,
+				&philo->table->philos_full);
 			break ;
 		}
 		write_status(SLEEPING, philo);
@@ -91,11 +95,12 @@ void	dinner_start(t_table *table)
 		return ;
 	else if (table->num_philo == 1)
 		pthread_create(&table->philos[0].thread_id,
-			NULL, one_philo, &table->philos[0]);
+			NULL, lone_philo, &table->philos[0]);
 	else
 	{
 		while (++i < table->num_philo)
-			pthread_create(&table->philos[i].thread_id, NULL, dinner_simulation, &table->philos[i]);
+			pthread_create(&table->philos[i].thread_id, NULL,
+				dinner_simulation, &table->philos[i]);
 	}
 	pthread_create(&table->monitor, NULL, monitor_dinner, table);
 	table->start_simulation = gettime();

@@ -66,12 +66,10 @@ typedef struct s_table
 }				t_table;
 
 //----------parsing.c--------------
-int		check_args(int ac, char **av);
-int		check_numbers(int ac, char **av);
+void	parse_input(t_table *table, char **av);
 
 //---------utils.c-----------------
 long	ft_atol(char *str);
-int		parse_input(t_table *table, char **av);
 
 //---------init.c-----------------
 void	data_init(t_table *table);
@@ -84,24 +82,25 @@ long	get_long(t_mtx *mutex, long *value);
 bool	sim_finished(t_table *table);
 
 //---------write.c-----------------
-void    write_status(t_philo_status status, t_philo *philo);
+void	write_status(t_philo_status status, t_philo *philo);
 
 //---------dinner.c-----------------
 void	dinner_start(t_table *table);
-void	*one_philo(void *data);
+void	*lone_philo(void *data);
 void	*dinner_simulation(void *data);
 
 //---------synchro_utils.c-----------------
-void    increase_long(t_mtx *mutex, long *value);
-void    wait_all_threads(t_table *table);
-bool    all_threads_running(t_mtx *mutex, long *threads, long philo_nbr);
+void	increase_long(t_mtx *mutex, long *value);
+void	wait_all_threads(t_table *table);
+bool	all_threads_running(t_mtx *mutex, long *threads, long philo_nbr);
 
 //---------utils2.c-----------------
-void    precise_usleep(long sleep_time, t_table *table);
-long    gettime(void);
+void	precise_usleep(long sleep_time, t_table *table);
+long	gettime(void);
+void	error_exit(char *error);
 void	clean(t_table *table);
 
 //---------monitor.c-----------------
-void    *monitor_dinner(void *data);
+void	*monitor_dinner(void *data);
 
 #endif

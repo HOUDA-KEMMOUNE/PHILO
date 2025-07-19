@@ -12,79 +12,51 @@
 
 #include "philo.h"
 
-static int	check(const char *str, int i)
+static bool	is_digit(char c)
 {
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	return (i);
+	return (c >= '0' && c <= '9');
 }
 
-static int	check_len(char *str)
+static bool	is_number(char *str)
 {
-	long long	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	if (i >= 9)
+	if (*str == '+')
+		str++;
+	if (!is_digit(*str))
+		return (false);
+	while (*str)
 	{
-		printf("The number is too long. The max is: INT_MAX\n");
-		return (-1);
+		if (!is_digit(*str))
+			return (false);
+		str++;
 	}
-	return (0);
+	return (true);
+}
+
+static bool	is_space(char c)
+{
+	return ((c >= 9 && c <= 13) || c == 32);
+}
+
+static char	*valid_input(char *str)
+{
+	while (is_space(*str))
+		++str;
+	if (*str == '-')
+		error_exit("Feed me only positive values sir!");
+	if (!is_number(str))
+		error_exit("The input is not a correct digit");
+	return (str);
 }
 
 long	ft_atol(char *str)
 {
-	int		i;
-	int		sign;
-	long	result;
+	long	num;
 
-	i = 0;
-	sign = 1;
-	result = 0;
-	i = check(str, i);
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	if (check_len(&str[i]) == -1)
-		return (-1);
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10 + (str[i] - '0');
-		i++;
-	}
-	return ((long)result * sign);
-}
-// ./philo 		5 			600 			200 			800 					[5]
-//			num_philo	time_to_die		time_to_eat		time_to_sleep	[num_each_philo_must_eat]
-
-int	parse_input(t_table *table, char **av)
-{
-	if (ft_atol(av[1]) == -1 || ft_atol(av[2]) == -1
-		|| ft_atol(av[3]) == -1 || ft_atol(av[4]) == -1)
-		return (1);
-	table->num_philo = ft_atol(av[1]);
-	table->time_to_die = ft_atol(av[2]) * 1e3;
-	table->time_to_eat = ft_atol(av[3]) * 1e3;
-	table->time_to_sleep = ft_atol(av[4]) * 1e3;
-	if (table->time_to_die < 6e4
-		|| table->time_to_eat < 6e4
-		|| table->time_to_sleep < 6e4)
-	{
-		printf("The times should be greater than 60ms !\n");
-		return (1);
-	}
-	if (av[5])
-	{
-		if (ft_atol(av[5]) == -1)
-			return (1);
-		table->nbr_limit_meals = ft_atol(av[5]);
-	}
-	else
-		table->nbr_limit_meals = -1;
-	return (0);
+	num = 0;
+	str = valid_input(str);
+	while (is_digit(*str))
+		num = (num * 10) + (*str++ - 48);
+	if (num > LONG_MAX)
+		error_exit("The input is too long, INT_MAX is the limit!");
+	return (num);
 }

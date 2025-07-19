@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static void	assign_forks(t_philo *philo, t_mtx *forks, int i)
+static void	assign_forks(t_philo *philo, pthread_mutex_t *forks, int i)
 {
 	int	philo_nbr;
 
@@ -64,7 +64,7 @@ void	data_init(t_table *table)
 	table->all_threads_ready = false;
 	table->threads_running_nbr = 0;
 	table->philos = malloc(sizeof(t_philo) * table->num_philo);
-	table->forks = malloc(sizeof(t_mtx) * table->num_philo);
+	table->forks = malloc(sizeof(pthread_mutex_t) * table->num_philo);
 	pthread_mutex_init(&table->table_mutex, NULL);
 	pthread_mutex_init(&table->write_mutex, NULL);
 	while (++i < table->num_philo)
